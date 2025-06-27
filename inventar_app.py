@@ -60,7 +60,7 @@ if st.session_state.inventory:
         with st.expander(f"📦 {item['Artikel']} ({item['Raum']} > {item['Schrank']} > {item['Box']})"):
             st.write(f"**Beschreibung:** {item['Beschreibung']}")
             st.write(f"**Raum:** {item['Raum']}")
-(f"**Schrank:** {item['Schrank']}  
+(f"**Schrank:** {item['Schrank']}") 
 (f"**Box:** {item['Box']}")
             if item["Bild"] is not None:
                 st.image(item["Bild"], width=200)

@@ -56,14 +56,20 @@ if st.session_state.inventory:
         or search_term.lower() in item["Raum"].lower()
     ]
 
-    for item in filtered_items:
-        with st.expander(f"📦 {item['Artikel']} ({item['Raum']} > {item['Schrank']} > {item['Box']})"):
-            st.write(f"**Beschreibung:** {item['Beschreibung']}")
-            st.write(f"**Raum:** {item['Raum']}")
-            st.write(f"**Schrank:** {item['Schrank']}")
-            st.write(f"**Box:** {item['Box']}")
-            if item["Bild"] is not None:
-                st.image(item["Bild"], width=200)
+    for index, item in enumerate(filtered_items):
+    with st.expander(f"📦 {item['Artikel']} ({item['Raum']} > {item['Schrank']} > Box: {item['Box']})"):
+        st.write(f"**Beschreibung:** {item['Beschreibung']}")
+        st.write(f"**Raum:** {item['Raum']}")
+        st.write(f"**Schrank:** {item['Schrank']}")
+        st.write(f"**Box:** {item['Box']}")
+        if item["Bild"] is not None:
+            st.image(item["Bild"], width=200)
+
+        # 🔴 NEU: Artikel löschen
+        if st.button(f"🗑️ Artikel löschen: {item['Artikel']}", key=f"delete_{index}"):
+            st.session_state.inventory.remove(item)
+            st.success(f"✅ Artikel '{item['Artikel']}' wurde gelöscht.")
+            st.experimental_rerun()
 else:
     st.info("Noch keine Artikel hinzugefügt.")
 
